@@ -20,6 +20,7 @@ def home():
 @app.route("/trailers")
 def trailers():
     get_trailers()
+    return "endpoint"
 
 
 if __name__ == "__main__":

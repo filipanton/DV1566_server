@@ -1,5 +1,6 @@
 import requests
 import mysql.connector
+import json
 
 # youtube key
 key = 'AIzaSyBpMyq8TYlXYhdzTZ26936WPPyy13b7hvQ'
@@ -7,10 +8,10 @@ key = 'AIzaSyBpMyq8TYlXYhdzTZ26936WPPyy13b7hvQ'
 
 def connect():
     cnx = mysql.connector.connect(
-        user='sql7379267',
-        password='rAuYPjlxvi',
-        host='sql7.freemysqlhosting.net',
-        database='sql7379267')
+        user='admin',
+        password='filmdigger',
+        host='rds-mysql.cwkwgvkea1uk.us-east-2.rds.amazonaws.com',
+        database='filmdiggerDB')
     return cnx
 
 
@@ -31,3 +32,14 @@ def get_trailers():
     cursor.close()
     cnx.close()
     print("30 minutes")
+
+
+def select_trailers():
+    cnx = connect()
+    cursor = cnx.cursor(dictionary=True)
+    sql = "SELECT * FROM trailers ORDER BY published DESC;"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    cursor.close()
+    cnx.close()
+    return json.dumps(results)

@@ -23,5 +23,11 @@ def trailers():
     return "endpoint"
 
 
+@app.route("/trailers_get")
+def sendTrailers():
+    results = select_trailers()
+    return results
+
+
 if __name__ == "__main__":
     app.run(debug=True)
